@@ -1,40 +1,53 @@
 import { Navigate,useRoutes } from "react-router-dom"
-import { LazyLoad } from "@/routes/lazyLoad"
+import { LazyLoad } from "@/routes/LazyLoad"
+import React from "react"
+import Layout from "@/layout"
 
-export default function myRoute() {
+export default function MyRoute() {
   const element = useRoutes([
-      {path:"/film",element:LazyLoad("Film"),children:[
+    {
+      path: "/", element: <Layout></Layout>,
+      children:
+        [
           {
-              path:"",
-              element:<Navigate  to="/film/nowplaying"/>
+            path: "",
+            element: <Navigate to="/home" />
           },
           {
-              path:"nowplaying",
-              element:LazyLoad("film/Nowplaying")
+            path: "home",
+            element: LazyLoad("home")
           },
           {
-              path:"comingsoon",
-              element:LazyLoad("film/Comingsoon")
-          }
-      ]},
-      {
-          path:"/cinema",element:LazyLoad("Cinema")
-      },
-      {
-          path:"/login",element:LazyLoad("Login")
-      },
-      {
-          path:"/center",element:LazyLoad("film/Nowplaying")
-      },
-      {
-          path:"/detail/:id",element:LazyLoad("Detail")
-      },
-      {
-          path:"/",element:<Navigate to="/film"/>
-      },
-      {
-          path:"*",element:LazyLoad("NotFound")
-      },
+            path: "user-manager",
+            element: LazyLoad("userManager")
+          },
+          {
+            path: "right-manager/role",
+            element: LazyLoad("rightManager")
+          },
+          {
+            path: "right-manager/right/list",
+            element: LazyLoad("rightManager")
+          },
+          {
+            path: "news-manager/draft",
+            element: LazyLoad("newsManager/draft")
+          },
+          {
+            path: "news-manager/category",
+            element: LazyLoad("newsManager/category")
+          },
+        ]
+    },
+    {
+      path: "/login", element: LazyLoad("login")
+    },
+    {
+      path: "/news", element: LazyLoad("news")
+    },
+    {
+      path: "*", element: LazyLoad("404")
+    },
   ])
 
   return element
