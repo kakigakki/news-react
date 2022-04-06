@@ -2,12 +2,12 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Breadcrumb } from 'antd';
 import React from 'react';
 
-interface Iprops {
+interface MyHeaderProps {
   collapsed: boolean;
   setcollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MyHeader(props: Iprops) {
+export default function MyHeader(props: MyHeaderProps) {
   return (
     <div className="flex items-center">
       <span

@@ -19,24 +19,48 @@ export default function MyRoute() {
           element: LazyLoad('home'),
         },
         {
-          path: 'user-manager',
-          element: LazyLoad('userManager'),
+          path: 'user-manage/list',
+          element: LazyLoad('userManage'),
         },
         {
-          path: 'right-manager/role',
-          element: LazyLoad('rightManager'),
+          path: 'right-manage/role/list',
+          element: LazyLoad('rightManage/role'),
         },
         {
-          path: 'right-manager/right/list',
-          element: LazyLoad('rightManager'),
+          path: 'right-manage/right/list',
+          element: LazyLoad('rightManage/right'),
         },
         {
-          path: 'news-manager/draft',
-          element: LazyLoad('newsManager/draft'),
+          path: 'news-manage/add',
+          element: LazyLoad('newsManage/add'),
         },
         {
-          path: 'news-manager/category',
-          element: LazyLoad('newsManager/category'),
+          path: 'news-manage/draft',
+          element: LazyLoad('newsManage/draft'),
+        },
+        {
+          path: 'news-manage/category',
+          element: LazyLoad('newsManage/category'),
+        },
+        {
+          path: 'audit-manage/audit',
+          element: LazyLoad('auditmanage/audit'),
+        },
+        {
+          path: 'audit-manage/list',
+          element: LazyLoad('auditmanage/list'),
+        },
+        {
+          path: 'publish-manage/unpublished',
+          element: LazyLoad('publishManage/unpublished'),
+        },
+        {
+          path: 'publish-manage/published',
+          element: LazyLoad('publishManage/published'),
+        },
+        {
+          path: 'publish-manage/sunset',
+          element: LazyLoad('publishManage/sunset'),
         },
       ],
     },
