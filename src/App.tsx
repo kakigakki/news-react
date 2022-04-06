@@ -1,11 +1,9 @@
-import { useState } from "react";
-import React from "react";
-import MyRoute from "@/routes";
+import React from 'react';
+
+import MyRoute from '@/routes';
 
 function App() {
-  return (
-    <MyRoute></MyRoute>
-  );
+  return <MyRoute></MyRoute>;
 }
 
 export default App;

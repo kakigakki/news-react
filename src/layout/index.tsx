@@ -1,30 +1,27 @@
-import React, { useState } from 'react'
 import { Layout } from 'antd';
+import React, { useState } from 'react';
 
 const { Content } = Layout;
-import {
+import {} from '@ant-design/icons';
 
-} from '@ant-design/icons';
-import MyHeader from './myHeader';
-import MySiderBar from './mySiderBar';
 import MyContent from './myContent';
 import MyFooter from './myFooter';
-
-
+import MyHeader from './myHeader';
+import MySiderBar from './mySiderBar';
 
 export default function index() {
-  const [collapsed, setcollapsed] = useState(false)
+  const [collapsed, setcollapsed] = useState(false);
 
   return (
-    <Layout className='!min-h-screen text-lg' >
-      <Content className='flex flex-col px-5'>
+    <Layout className="!min-h-screen text-lg ">
+      <Content className="flex flex-col px-5">
         <MyHeader collapsed={collapsed} setcollapsed={setcollapsed} />
-        <Layout >
+        <Layout>
           <MySiderBar collapsed={collapsed} />
           <MyContent />
         </Layout>
       </Content>
       <MyFooter />
-    </Layout >
-  )
+    </Layout>
+  );
 }

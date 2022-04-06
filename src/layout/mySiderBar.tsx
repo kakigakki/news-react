@@ -1,41 +1,79 @@
-import React from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+/* eslint-disable react/jsx-key */
+import { HomeOutlined, ReadOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
+import { AxiosResponse } from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface Iprops {
-  collapsed: boolean,
+import { getRights } from '@/api';
+
+import { IMenu } from './interface';
+const { SubMenu } = Menu;
+const { Sider } = Layout;
+
+interface IProps {
+  collapsed: boolean;
 }
 
-export default function MySiderBar(props: Iprops) {
+const iconMap = new Map([
+  ['/home', <UserOutlined />],
+  ['/user-manage', <UserOutlined />],
+  ['/user-manage/add', <UserOutlined />],
+  ['/user-manage/delete', <UserOutlined />],
+  ['/user-manage/list', <UserOutlined />],
+  ['/right-manage', <UserOutlined />],
+  ['/right-manage/list', <UserOutlined />],
+  ['/right-manage/right', <UserOutlined />],
+  ['/news-manage', <UserOutlined />],
+  ['/news-manage/list', <UserOutlined />],
+  ['/news-manage/draft', <UserOutlined />],
+  ['/news-manage/category', <UserOutlined />],
+  ['/audit-manage', <UserOutlined />],
+  ['/audit-manage/list', <UserOutlined />],
+  ['/publish-manage', <UserOutlined />],
+  ['/publish-manage/unpublished', <UserOutlined />],
+  ['/publish-manage/published', <UserOutlined />],
+  ['/publish-manage/sunset', <UserOutlined />],
+]);
+
+export default function MySiderBar(props: IProps) {
+  const [menu, setmenu] = useState<IMenu[]>();
+  useEffect(() => {
+    getRights().then((result) => {
+      setmenu(result.data);
+    });
+  }, [menu]);
+  const navigate = useNavigate();
+  const generateList = (menuList: IMenu[]) => {
+    return menuList.map((item) =>
+      item.children ? (
+        <SubMenu key={item.key} icon={<UserOutlined />} title={item.title}>
+          {generateList(item.children)}
+        </SubMenu>
+      ) : (
+        <Menu.Item
+          key={item.key}
+          icon={iconMap.get(item.key)}
+          onClick={() => {
+            navigate(item.key);
+          }}
+        >
+          {item.title}
+        </Menu.Item>
+      ),
+    );
+  };
+
   return (
-    <Sider className='!bg-base' collapsible collapsed={props.collapsed} trigger={null}>
+    <Sider className="!bg-base" collapsible collapsed={props.collapsed} trigger={null}>
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         className="rounded-lg"
       >
-        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-          <Menu.Item key="1">option1</Menu.Item>
-          <Menu.Item key="2">option2</Menu.Item>
-          <Menu.Item key="3">option3</Menu.Item>
-          <Menu.Item key="4">option4</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-          <Menu.Item key="5">option5</Menu.Item>
-          <Menu.Item key="6">option6</Menu.Item>
-          <Menu.Item key="7">option7</Menu.Item>
-          <Menu.Item key="8">option8</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-          <Menu.Item key="9">option9</Menu.Item>
-          <Menu.Item key="10">option10</Menu.Item>
-          <Menu.Item key="11">option11</Menu.Item>
-          <Menu.Item key="12">option12</Menu.Item>
-        </SubMenu>
+        {menu && generateList(menu)}
       </Menu>
     </Sider>
-  )
+  );
 }

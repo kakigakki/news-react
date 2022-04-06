@@ -1,11 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from '@/App'
-import 'uno.css'
+import './index.css';
+import 'uno.css';
 import 'antd/dist/antd.variable.min.css';
-import { BrowserRouter } from "react-router-dom";
-import "@/styles/ant"
+import '@/styles/ant';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from '@/App';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,5 +15,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
