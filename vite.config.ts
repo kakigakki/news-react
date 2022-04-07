@@ -12,7 +12,7 @@ export default defineConfig({
       theme: {
         colors: {
           primary: '#25b864',
-          error: '#27AE60',
+          error: '#D63A3D',
           warning: '#D68910',
           success: '#5499C7',
           base: '#f3f3f9',

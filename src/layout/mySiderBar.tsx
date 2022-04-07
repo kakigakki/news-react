@@ -22,7 +22,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { getRights } from '@/api';
 
-import { IMenu } from './interface';
+import { IRights } from './interface';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
@@ -51,7 +51,7 @@ const iconMap = new Map([
 ]);
 
 export default function MySiderBar(props: MySiderBarProps) {
-  const [menu, setMenu] = useState<IMenu[]>();
+  const [menu, setMenu] = useState<IRights[]>();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -63,11 +63,11 @@ export default function MySiderBar(props: MySiderBarProps) {
   }, []);
 
   const selectedKeys = [location.pathname];
-  const generateList = (menuList: IMenu[]) => {
+  const generateList = (menuList: IRights[]) => {
     return menuList
       .filter((item) => item.pagepermisson === 1)
       .map((item) =>
-        item.children?.length > 0 ? (
+        item.children && item.children.length > 0 ? (
           <SubMenu key={item.key} icon={iconMap.get(item.key)} title={item.title}>
             {generateList(item.children)}
           </SubMenu>
