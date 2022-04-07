@@ -22,7 +22,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { getRights } from '@/api';
 
-import { IRights } from './interface';
+import { IRights } from '../interface';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
