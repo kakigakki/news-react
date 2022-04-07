@@ -112,8 +112,13 @@ export default function RightList() {
       );
     }
     setRights([...rights]);
-    console.log(item);
   };
 
-  return <Table columns={columns} dataSource={rights} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={rights}
+      pagination={{ hideOnSinglePage: true }}
+    />
+  );
 }
