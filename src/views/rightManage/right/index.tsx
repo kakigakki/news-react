@@ -1,8 +1,9 @@
-import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
-import { Button, Popover, Switch, Table, Tag } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Button, message, Switch, Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import { deleteRight, getRights } from '@/api';
+import { deleteRight, deleteRightChild, getRights } from '@/api';
+import { DELETE_SUCCESS } from '@/constants/message';
 import { IRights } from '@/layout/interface';
 
 export default function RightList() {
@@ -50,7 +51,7 @@ export default function RightList() {
               danger
               size="small"
               icon={<DeleteOutlined />}
-              onClick={() => deleteRight(item)}
+              onClick={() => handleDeleteRight(item)}
             >
               删除
             </Button>
@@ -60,8 +61,24 @@ export default function RightList() {
     },
   ];
 
-  const deleteRight = (item: IRights) => {
-    console.log(item);
+  const handleDeleteRight = (item: IRights) => {
+    if (item.grade === 1) {
+      setRights(rights?.filter((right) => right.id !== item.id));
+      deleteRight(item.id).then(() => {
+        message.success(DELETE_SUCCESS);
+      });
+    } else {
+      const parentRight = rights?.filter((right) => right.id === item.rightId)[0];
+      if (parentRight) {
+        parentRight.children = parentRight.children?.filter(
+          (right) => right.id !== item.id,
+        );
+      }
+      setRights([...rights!]);
+      deleteRightChild(item.id).then(() => {
+        message.success(DELETE_SUCCESS);
+      });
+    }
   };
 
   return <Table columns={columns} dataSource={rights} />;

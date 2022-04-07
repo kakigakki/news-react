@@ -5,5 +5,6 @@ export interface IRights {
   pagepermisson?: number;
   routepermission?: number;
   grade: number;
+  rightId?: number;
   children?: IRights[];
 }

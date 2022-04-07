@@ -14,7 +14,7 @@ export default function index() {
 
   return (
     <Layout className="!min-h-screen text-lg ">
-      <Content className="flex flex-col px-5">
+      <Content className=" px-5">
         <MyHeader collapsed={collapsed} setcollapsed={setcollapsed} />
         <Layout>
           <MySiderBar collapsed={collapsed} />
