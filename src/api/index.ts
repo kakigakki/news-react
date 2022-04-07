@@ -9,14 +9,14 @@ export const deleteRight = (id: number) => {
   return axios.delete(`/rights/${id}`);
 };
 
-export const patchRight = (id: number) => {
-  return axios.patch(`/rights/${id}`);
+export const toggleRight = (id: number, data: any) => {
+  return axios.patch(`/rights/${id}`, data);
 };
 
 export const deleteRightChild = (id: number) => {
   return axios.get(`/children/${id}`);
 };
 
-export const patchRightChild = (id: number) => {
-  return axios.get(`/rights/${id}`);
+export const toggleRightChild = (id: number, data: any) => {
+  return axios.patch(`/children/${id}`, data);
 };
