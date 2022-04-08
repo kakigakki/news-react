@@ -1,17 +1,17 @@
 import { Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import { getRights } from '@/api';
-import { IRights } from '@/interface';
+import { listRights } from '@/api';
+import { IRight } from '@/interface';
 
 import { Actions } from './actions';
 
 export default function RightList() {
-  const [rights, setRights] = useState<IRights[]>([]);
+  const [rights, setRights] = useState<IRight[]>([]);
 
   useEffect(() => {
-    getRights().then((res) => {
-      (res.data as IRights[]).forEach((item) => {
+    listRights().then((res) => {
+      (res.data as IRight[]).forEach((item) => {
         if (item.children?.length === 0) {
           item.children = undefined;
         }
@@ -41,7 +41,7 @@ export default function RightList() {
     {
       title: () => <b>操作</b>,
       key: 'action',
-      render: (item: IRights) => (
+      render: (item: IRight) => (
         <Actions rights={rights} setRights={setRights} item={item} />
       ),
     },

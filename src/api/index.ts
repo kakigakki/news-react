@@ -1,7 +1,7 @@
 import axios from '@/utils/axios';
 
 //权限API
-export const getRights = () => {
+export const listRights = () => {
   return axios.get('/rights?_embed=children');
 };
 
@@ -19,4 +19,26 @@ export const deleteRightChild = (id: number) => {
 
 export const toggleRightChild = (id: number, data: any) => {
   return axios.patch(`/children/${id}`, data);
+};
+
+//role API
+export const listRoles = () => {
+  return axios.get('/roles');
+};
+
+export const deleteRole = (id: number) => {
+  return axios.delete(`/roles/${id}`);
+};
+
+export const changeRoleRight = (id: number, data: any) => {
+  return axios.patch(`/roles/${id}`, data);
+};
+
+//user API
+export const listUsers = () => {
+  return axios.get('/users?_expand=role');
+};
+
+export const deleteUser = (id: number) => {
+  return axios.delete(`/users/${id}`);
 };

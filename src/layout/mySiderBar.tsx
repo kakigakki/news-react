@@ -20,9 +20,9 @@ import { Layout, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { getRights } from '@/api';
+import { listRights } from '@/api';
 
-import { IRights } from '../interface';
+import { IRight } from '../interface';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
@@ -51,19 +51,19 @@ const iconMap = new Map([
 ]);
 
 export default function MySiderBar(props: MySiderBarProps) {
-  const [menu, setMenu] = useState<IRights[]>();
+  const [menu, setMenu] = useState<IRight[]>();
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    getRights().then((result) => {
+    listRights().then((result) => {
       setMenu(result.data);
     });
   }, []);
 
   const selectedKeys = [location.pathname];
-  const generateList = (menuList: IRights[]) => {
+  const generateList = (menuList: IRight[]) => {
     return menuList
       .filter((item) => item.pagepermisson === 1)
       .map((item) =>

@@ -4,17 +4,17 @@ import React from 'react';
 
 import { deleteRight, deleteRightChild, toggleRight, toggleRightChild } from '@/api';
 import { DELETE_COMFIRM, DELETE_SUCCESS, TOGGLE_SUCCESS } from '@/constants/message';
-import { IRights } from '@/interface';
+import { IRight } from '@/interface';
 
 interface IActionsProps {
-  rights: IRights[];
-  setRights: React.Dispatch<React.SetStateAction<IRights[]>>;
-  item: IRights;
+  rights: IRight[];
+  setRights: React.Dispatch<React.SetStateAction<IRight[]>>;
+  item: IRight;
 }
 
 export const Actions = (props: IActionsProps) => {
   const { rights, setRights, item } = props;
-  const handleDeleteRight = (item: IRights) => {
+  const handleDeleteRight = (item: IRight) => {
     if (item.grade === 1) {
       setRights(rights?.filter((right) => right.id !== item.id));
       deleteRight(item.id).then(() => {
@@ -34,7 +34,7 @@ export const Actions = (props: IActionsProps) => {
     }
   };
 
-  const handleToggle = (item: IRights) => {
+  const handleToggle = (item: IRight) => {
     item.pagepermisson = item.pagepermisson ? 0 : 1;
     if (item.grade === 1) {
       toggleRight(item.id, { pagepermisson: item.pagepermisson }).then(() =>
