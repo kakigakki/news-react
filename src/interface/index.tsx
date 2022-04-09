@@ -21,3 +21,15 @@ export interface IRole {
   roleType: ERole;
   rights: string[];
 }
+
+export interface IUser {
+  id: number;
+  username: string;
+  password: number;
+  roleState?: number;
+  default: boolean;
+  region: string;
+  roleId: number;
+  roleName: string;
+  role: IRole;
+}
