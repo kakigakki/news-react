@@ -49,6 +49,7 @@ export default function RightList() {
 
   return (
     <Table
+      rowKey="id"
       columns={columns}
       dataSource={rights}
       pagination={{ hideOnSinglePage: true }}

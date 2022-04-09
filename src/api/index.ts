@@ -39,6 +39,14 @@ export const listUsers = () => {
   return axios.get('/users?_expand=role');
 };
 
+export const addUser = (id: number, data: any) => {
+  return axios.post(`/users/${id}`, data);
+};
+
+export const editUser = (id: number, data: any) => {
+  return axios.patch(`/users/${id}`, data);
+};
+
 export const deleteUser = (id: number) => {
   return axios.delete(`/users/${id}`);
 };

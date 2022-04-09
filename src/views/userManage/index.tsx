@@ -1,8 +1,13 @@
-import { Switch, Table, Tag } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Button, message, Switch, Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import { listUsers } from '@/api';
+import { editUser, listUsers } from '@/api';
+import { TOGGLE_SUCCESS } from '@/constants/message';
 import { IUser } from '@/interface';
+
+import { Actions } from './actions';
+import AddUser from './addUser';
 
 export default function RightList() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -19,6 +24,16 @@ export default function RightList() {
     });
   }, []);
 
+  const handlechangeState = (checked: boolean, item: IUser) => {
+    item.roleState = checked;
+    setUsers([...users]);
+    editUser(item.id, {
+      roleState: checked,
+    }).then(() => {
+      message.success(TOGGLE_SUCCESS);
+    });
+  };
+
   const columns = [
     {
       title: () => <b>区域</b>,
@@ -29,28 +44,42 @@ export default function RightList() {
     {
       title: () => <b>角色名称</b>,
       dataIndex: 'roleName',
-      width: '20%',
+      width: '25%',
     },
     {
       title: () => <b>用户名</b>,
       dataIndex: 'username',
-      width: '30%',
+      width: '25%',
     },
     {
       title: () => <b>用户状态</b>,
-      key: 'action',
-      render: () => <Switch />,
+      dataIndex: 'roleState',
+      width: '15%',
+      render: (roleState: boolean, item: IUser) => (
+        <Switch
+          checked={roleState}
+          onChange={(checked) => {
+            handlechangeState(checked, item);
+          }}
+        />
+      ),
     },
     {
       title: () => <b>操作</b>,
       key: 'action',
-      // render: (item: IRight) => (
-      //   <Actions rights={rights} setRights={setRights} item={item} />
-      // ),
+      render: (item: IUser) => <Actions users={users} setUsers={setUsers} item={item} />,
     },
   ];
 
   return (
-    <Table columns={columns} dataSource={users} pagination={{ hideOnSinglePage: true }} />
+    <div>
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={users}
+        pagination={{ hideOnSinglePage: true }}
+      />
+      <AddUser className="mt-4"></AddUser>
+    </div>
   );
 }

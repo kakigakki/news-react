@@ -26,7 +26,7 @@ export interface IUser {
   id: number;
   username: string;
   password: number;
-  roleState?: number;
+  roleState: boolean;
   default: boolean;
   region: string;
   roleId: number;

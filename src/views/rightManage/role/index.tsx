@@ -37,6 +37,11 @@ export default function RoleList() {
     },
   ];
   return (
-    <Table columns={columns} dataSource={roles} pagination={{ hideOnSinglePage: true }} />
+    <Table
+      rowKey="id"
+      columns={columns}
+      dataSource={roles}
+      pagination={{ hideOnSinglePage: true }}
+    />
   );
 }
