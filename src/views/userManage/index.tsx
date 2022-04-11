@@ -1,5 +1,4 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
-import { Button, message, Switch, Table, Tag } from 'antd';
+import { message, Switch, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 import { editUser, listUsers } from '@/api';
@@ -7,27 +6,30 @@ import { TOGGLE_SUCCESS } from '@/constants/message';
 import { IUser } from '@/interface';
 
 import { Actions } from './actions';
-import AddUser from './addUser';
+import UserModal from './UserModal';
 
 export default function RightList() {
   const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
-    listUsers().then((res) => {
-      (res.data as IUser[]).forEach((user) => {
-        if (!user.region) {
-          user.region = '全球';
-        }
-        user.roleName = user.role.roleName;
-      });
-      setUsers(res.data);
-    });
+    dispUsers();
   }, []);
+
+  const dispUsers = async () => {
+    const res = await listUsers();
+    (res.data as IUser[]).forEach((user) => {
+      if (!user.region) {
+        user.region = '全球';
+      }
+      user.roleName = user.role?.roleName;
+    });
+    setUsers(res.data);
+  };
 
   const handlechangeState = (checked: boolean, item: IUser) => {
     item.roleState = checked;
     setUsers([...users]);
-    editUser(item.id, {
+    editUser(item.id!, {
       roleState: checked,
     }).then(() => {
       message.success(TOGGLE_SUCCESS);
@@ -67,19 +69,21 @@ export default function RightList() {
     {
       title: () => <b>操作</b>,
       key: 'action',
-      render: (item: IUser) => <Actions users={users} setUsers={setUsers} item={item} />,
+      render: (item: IUser) => (
+        <Actions users={users} setUsers={setUsers} dispUsers={dispUsers} item={item} />
+      ),
     },
   ];
 
   return (
     <div>
+      <UserModal className="mb-4" dispUsers={dispUsers} isEditMode={false}></UserModal>
       <Table
         rowKey="id"
         columns={columns}
         dataSource={users}
         pagination={{ hideOnSinglePage: true }}
       />
-      <AddUser className="mt-4"></AddUser>
     </div>
   );
 }

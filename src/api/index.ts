@@ -1,3 +1,4 @@
+import { IUser } from '@/interface';
 import axios from '@/utils/axios';
 
 //权限API
@@ -39,8 +40,12 @@ export const listUsers = () => {
   return axios.get('/users?_expand=role');
 };
 
-export const addUser = (id: number, data: any) => {
-  return axios.post(`/users/${id}`, data);
+export const getUser = (id: number) => {
+  return axios.get(`/users/${id}`);
+};
+
+export const addUser = (data: IUser) => {
+  return axios.post(`/users`, data);
 };
 
 export const editUser = (id: number, data: any) => {
@@ -49,4 +54,10 @@ export const editUser = (id: number, data: any) => {
 
 export const deleteUser = (id: number) => {
   return axios.delete(`/users/${id}`);
+};
+
+//region API
+
+export const listRegions = () => {
+  return axios.get('/regions');
 };

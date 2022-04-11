@@ -23,13 +23,19 @@ export interface IRole {
 }
 
 export interface IUser {
-  id: number;
+  id?: number;
   username: string;
   password: number;
   roleState: boolean;
   default: boolean;
   region: string;
   roleId: number;
-  roleName: string;
-  role: IRole;
+  roleName?: string;
+  role?: IRole;
+}
+
+export interface IRegion {
+  id: number;
+  title: string;
+  value: string;
 }
