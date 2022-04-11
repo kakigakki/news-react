@@ -1,4 +1,4 @@
-import { DeleteOutlined, FormOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { FormOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import {
   Button,
   Col,
@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { addUser, editUser, getUser, listRegions, listRoles } from '@/api';
+import { addUser, editUser, listRegions, listRoles } from '@/api';
 import { ADD_SUCCESS, EDIT_SUCCESS } from '@/constants/message';
 import { ERole, IRegion, IRole, IUser } from '@/interface';
 
