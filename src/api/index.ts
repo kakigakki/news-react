@@ -61,3 +61,12 @@ export const deleteUser = (id: number) => {
 export const listRegions = () => {
   return axios.get('/regions');
 };
+
+//login API
+//json-server can't use post to get user info
+//so use get instead
+export const loginAndGetUser = (userName: string, password: string) => {
+  return axios.get(
+    `/users?_expand=role&username=${userName}&password=${password}&roleState=true`,
+  );
+};
