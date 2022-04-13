@@ -1,14 +1,20 @@
 import React from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, useLocation, useRoutes } from 'react-router-dom';
 
 import Layout from '@/layout';
 import { LazyLoad } from '@/routes/LazyLoad';
 
 export default function MyRoute() {
+  const location = useLocation();
+  const token = !!localStorage.getItem('token');
   const element = useRoutes([
     {
       path: '/',
-      element: <Layout></Layout>,
+      element: token ? (
+        <Layout></Layout>
+      ) : (
+        <Navigate to="/login" state={{ redirect: location.pathname }} />
+      ),
       children: [
         {
           path: '',

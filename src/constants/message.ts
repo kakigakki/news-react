@@ -6,3 +6,4 @@ export const TOGGLE_SUCCESS = '切换成功';
 export const EDIT_SUCCESS = '修改成功';
 
 export const ADD_SUCCESS = '添加成功';
+export const WRONG_USER = '账号或密码错误';

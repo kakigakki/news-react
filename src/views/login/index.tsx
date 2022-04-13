@@ -1,19 +1,42 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Checkbox, Divider, Form, FormInstance, Input } from 'antd';
-import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  Divider,
+  Form,
+  FormInstance,
+  Input,
+  message,
+} from 'antd';
+import React, { useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { loginAndGetUser } from '@/api';
 import Wrapper from '@/components/Wrapper';
+import { WRONG_USER } from '@/constants/message';
 
 export default function login() {
   const formRef = useRef<FormInstance>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const token = localStorage.getItem('token');
+  useEffect(() => {
+    if (token) {
+      navigate('/home');
+    }
+  }, []);
+
   const handleLogin = () => {
     const values = formRef.current?.getFieldsValue();
     loginAndGetUser(values.username, values.password).then((res) => {
-      localStorage.setItem('token', JSON.stringify(res.data[0])); //for easy,use user obj as token
-      navigate('/');
+      if (res.data[0]) {
+        localStorage.setItem('token', JSON.stringify(res.data[0])); //for easy,use user obj as token
+        const redirect = (location.state as any)?.redirect;
+        navigate(redirect ? redirect : '/home');
+      } else {
+        message.error(WRONG_USER);
+      }
     });
   };
 
