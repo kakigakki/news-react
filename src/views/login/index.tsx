@@ -40,6 +40,11 @@ export default function login() {
     });
   };
 
+  const handleDemoLogin = () => {
+    localStorage.setItem('token', 'demoToken'); //for easy,use user obj as token
+    navigate('/home');
+  };
+
   return (
     <Wrapper className="flex justify-center pt-24">
       <div className="w-72">
@@ -88,7 +93,10 @@ export default function login() {
               className=" w-full"
               onClick={handleLogin}
             >
-              Submit
+              Login
+            </Button>
+            <Button type="dashed" className="w-full mt-2" onClick={handleDemoLogin}>
+              Demo Login
             </Button>
           </Form.Item>
         </Form>
