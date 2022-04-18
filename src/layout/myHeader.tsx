@@ -37,7 +37,7 @@ export default function MyHeader(props: MyHeaderProps) {
       </div>
       {/* right side */}
       <div className="flex items-center">
-        <span className="bg-white px-3 rounded-sm mr-2 hover:text-primary">
+        <span className="bg-white px-3 rounded-sm mr-2 hover:text-primary text-size-4 ">
           {user.username}
         </span>
         <Tooltip placement="bottom" title="退出登录" mouseEnterDelay={0} color="#27AE60">
